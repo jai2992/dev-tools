@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react'
 import Button from '../components/ui/Button';
 import Head from 'next/head';
 
-export default function qr(){
+export default function Qr(){
     const [userInput,setUserInput] = useState<string>("");
     const [btnState,setBtnState] = useState<string>("opacity-50 cursor-not-allowed hover:ring-0 hover:bg-blue-600")
     const [qrImg,setQrImg] = useState<string>("")
@@ -41,7 +41,7 @@ export default function qr(){
                 <meta property="og:url" content="https://devtools.software/qr" />
                 <meta name="robots" content="index,follow" />
             </Head>
-            
+
             <div className="bg-radial-[at_75%_50%] from-sky-300 via-blue-500 to-indigo-900 to-100% sm:bg-radial-[at_50%_75%] sm:from-sky-200 sm:via-blue-400 sm:to-indigo-900 sm:to-90%">
             <div className="flex flex-col h-screen w-screen justify-center items-center text-center">
                 <div className="flex flex-col justify-center items-center backdrop-blur-md bg-white/20 border border-white/30 rounded-lg shadow-md p-6 max-w-sm ring-1 ring-sky tansition-all duration-300">
