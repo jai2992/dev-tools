@@ -2,6 +2,7 @@
 import {useEffect, useState} from 'react'
 import Button from '../components/ui/Button';
 import Head from 'next/head';
+import Image from 'next/image';
 
 export default function Qr(){
     const [userInput,setUserInput] = useState<string>("");
@@ -61,7 +62,7 @@ export default function Qr(){
                     <div className='mt-5 h-300px w-300px'>
                         {qrImg!=="" &&
                         <div>
-                            <img src={qrImg} alt="" />
+                            <Image src={qrImg} alt="" />
                             <a href={qrImg} download={qrImg}>
                             <Button variant='primary' className='mt-5'>Download</Button>
                             </a>

@@ -6,7 +6,7 @@ export default function JsonValidator() {
     const [userInput,setUserInput] = useState<string>("")
     const [output,setOutput] = useState<string>("")
     const [btnState,setBtnState] = useState<string>("opacity-50 cursor-not-allowed hover:ring-0 hover:bg-blue-600")
-    const [isValid,setIsValid] = useState<Boolean>(false)
+    const [isValid,setIsValid] = useState(false)
     useEffect(
             ()=>
             {
