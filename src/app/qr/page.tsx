@@ -62,7 +62,9 @@ export default function Qr(){
                         {qrImg!=="" &&
                         <div>
                             <img src={qrImg} alt="" />
-                            <Button variant='primary' className='mt-5'><a href={qrImg}>Download</a></Button>
+                            <a href={qrImg} download={qrImg}>
+                            <Button variant='primary' className='mt-5'>Download</Button>
+                            </a>
                         </div>
                         }
                     </div>
