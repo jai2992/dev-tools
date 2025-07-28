@@ -16,6 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         {children}
+      <div className="flex justify-center items-center w-screen bottom-0 text-white font-bold fixed text-sm sm:text-md">© 2025 www.devtools.software</div>
       </body>
     </html>
   );
