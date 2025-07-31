@@ -59,7 +59,10 @@ export default function HashGeneratorPage() {
     let hashData: ArrayBuffer;
     if (typeof data === "string") {
       const encoder = new TextEncoder();
-      hashData = encoder.encode(data).buffer;
+      const encoded = encoder.encode(data);
+      // Create a proper ArrayBuffer from the Uint8Array
+      hashData = new ArrayBuffer(encoded.length);
+      new Uint8Array(hashData).set(encoded);
     } else {
       hashData = data;
     }
