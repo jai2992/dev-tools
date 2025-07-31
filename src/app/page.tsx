@@ -6,10 +6,10 @@ export default function Home() {
       DEVTOOLS.SOFTWARE
       </div>
       <div className="text-sm sm:text-xl text-semibold pt-2">
-        Your One-Stop Free Toolkit for Modern Developers!
+        Your One-Stop Free Toolkit for Modern Developers & Document Processing!
       </div>
       <div className="text-xs sm:text-sm pt-2">
-        Our list of tools for free...
+        Code tools, document converters, and more - all for free...
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-6 max-w-6xl mx-auto">
         {/* Existing Tools */}
@@ -83,6 +83,73 @@ export default function Home() {
         <a href="/htaccess-generator">
           <LandingCard>
             ⚙️ .htaccess Config
+          </LandingCard>
+        </a>
+
+        {/* Document Processing Tools */}
+        <a href="/pdf-to-word">
+          <LandingCard>
+            📄 PDF to Word
+          </LandingCard>
+        </a>
+        <a href="/pdf-to-excel">
+          <LandingCard>
+            📊 PDF to Excel
+          </LandingCard>
+        </a>
+        <a href="/word-to-pdf">
+          <LandingCard>
+            📝 Word to PDF
+          </LandingCard>
+        </a>
+        <a href="/excel-to-pdf">
+          <LandingCard>
+            📈 Excel to PDF
+          </LandingCard>
+        </a>
+        <a href="/powerpoint-to-pdf">
+          <LandingCard>
+            📊 PowerPoint to PDF
+          </LandingCard>
+        </a>
+        <a href="/pdf-merge-split">
+          <LandingCard>
+            🔗 PDF Merge & Split
+          </LandingCard>
+        </a>
+        <a href="/pdf-compressor">
+          <LandingCard>
+            🗜️ PDF Compressor
+          </LandingCard>
+        </a>
+        <a href="/pdf-extract-pages">
+          <LandingCard>
+            📑 PDF Page Extractor
+          </LandingCard>
+        </a>
+        <a href="/pdf-unlock">
+          <LandingCard>
+            🔓 PDF Password Remover
+          </LandingCard>
+        </a>
+        <a href="/ocr-text-extraction">
+          <LandingCard>
+            🔍 OCR Text Extraction
+          </LandingCard>
+        </a>
+        <a href="/document-viewer">
+          <LandingCard>
+            👁️ Document Viewer
+          </LandingCard>
+        </a>
+        <a href="/ebook-converter">
+          <LandingCard>
+            📚 E-book Converter
+          </LandingCard>
+        </a>
+        <a href="/document-metadata">
+          <LandingCard>
+            📋 Document Metadata
           </LandingCard>
         </a>
       </div>
