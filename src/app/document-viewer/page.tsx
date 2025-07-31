@@ -23,99 +23,111 @@ export default function DocumentViewerPage() {
           // For PDF files, we'll show a message about PDF viewing
           setViewerContent('PDF_VIEWER');
         } else if (['docx', 'doc'].includes(extension || '')) {
-          // For Word documents, show placeholder content
+          // For Word documents, show file information with limitation notice
           setViewerContent(`
-            <div style="font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;">
-              <h1>Document: ${file.name}</h1>
-              <p>This is a preview of the Word document content. In a real implementation, this would parse and display the actual document content.</p>
+            <div style="font-family: Arial, sans-serif; padding: 20px; line-height: 1.6; background: #f8f9fa; border-radius: 8px;">
+              <h2 style="color: #d63384; margin-bottom: 16px;">📄 Word Document Detected</h2>
               
-              <h2>Document Information</h2>
-              <ul>
+              <div style="background: #fff3cd; border: 1px solid #ffc107; padding: 12px; border-radius: 6px; margin-bottom: 20px;">
+                <strong>⚠️ Limited Preview:</strong> Full Word document parsing requires specialized libraries. 
+                This viewer shows document information only.
+              </div>
+              
+              <h3 style="color: #0d6efd;">Document Information</h3>
+              <ul style="background: white; padding: 15px; border-radius: 6px; border-left: 4px solid #0d6efd;">
                 <li><strong>Filename:</strong> ${file.name}</li>
                 <li><strong>Size:</strong> ${(file.size / (1024 * 1024)).toFixed(2)} MB</li>
                 <li><strong>Type:</strong> Microsoft Word Document</li>
+                <li><strong>Last Modified:</strong> ${file.lastModified ? new Date(file.lastModified).toLocaleDateString() : 'Unknown'}</li>
               </ul>
               
-              <h2>Sample Content</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
-              
-              <p>This viewer would display:</p>
-              <ul>
-                <li>Formatted text with styles</li>
-                <li>Tables and lists</li>
-                <li>Images and media</li>
-                <li>Headers and footers</li>
-                <li>Page breaks and layout</li>
-              </ul>
-            </div>
-          `);
-        } else if (['xlsx', 'xls'].includes(extension || '')) {
-          // For Excel files, show placeholder spreadsheet
-          setViewerContent(`
-            <div style="font-family: Arial, sans-serif; padding: 20px;">
-              <h1>Spreadsheet: ${file.name}</h1>
-              <div style="overflow-x: auto; margin: 20px 0;">
-                <table style="border-collapse: collapse; width: 100%; border: 1px solid #ddd;">
-                  <thead>
-                    <tr style="background-color: #f5f5f5;">
-                      <th style="border: 1px solid #ddd; padding: 8px;">A</th>
-                      <th style="border: 1px solid #ddd; padding: 8px;">B</th>
-                      <th style="border: 1px solid #ddd; padding: 8px;">C</th>
-                      <th style="border: 1px solid #ddd; padding: 8px;">D</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td style="border: 1px solid #ddd; padding: 8px;">Header 1</td>
-                      <td style="border: 1px solid #ddd; padding: 8px;">Header 2</td>
-                      <td style="border: 1px solid #ddd; padding: 8px;">Header 3</td>
-                      <td style="border: 1px solid #ddd; padding: 8px;">Header 4</td>
-                    </tr>
-                    <tr>
-                      <td style="border: 1px solid #ddd; padding: 8px;">Sample Data</td>
-                      <td style="border: 1px solid #ddd; padding: 8px;">123</td>
-                      <td style="border: 1px solid #ddd; padding: 8px;">456</td>
-                      <td style="border: 1px solid #ddd; padding: 8px;">Formula Result</td>
-                    </tr>
-                    <tr>
-                      <td style="border: 1px solid #ddd; padding: 8px;">More Data</td>
-                      <td style="border: 1px solid #ddd; padding: 8px;">789</td>
-                      <td style="border: 1px solid #ddd; padding: 8px;">101112</td>
-                      <td style="border: 1px solid #ddd; padding: 8px;">Calculated</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <p><em>This is a preview of the Excel spreadsheet. In a real implementation, this would show all sheets, formulas, and formatting.</em></p>
-            </div>
-          `);
-        } else if (['pptx', 'ppt'].includes(extension || '')) {
-          // For PowerPoint files
-          setViewerContent(`
-            <div style="font-family: Arial, sans-serif; padding: 20px;">
-              <h1>Presentation: ${file.name}</h1>
-              
-              <div style="border: 2px solid #ddd; margin: 20px 0; padding: 20px; text-align: center; background: linear-gradient(45deg, #f0f0f0, #ffffff);">
-                <h2>Slide 1: Title Slide</h2>
-                <h3>Sample Presentation</h3>
-                <p>Subtitle or tagline would appear here</p>
-              </div>
-              
-              <div style="border: 2px solid #ddd; margin: 20px 0; padding: 20px; background: #ffffff;">
-                <h2>Slide 2: Content Slide</h2>
+              <h3 style="color: #198754;">For Full Document Viewing</h3>
+              <div style="background: #d1edff; padding: 15px; border-radius: 6px;">
+                <p><strong>Recommended approaches:</strong></p>
                 <ul>
-                  <li>Bullet point 1</li>
-                  <li>Bullet point 2</li>
-                  <li>Bullet point 3</li>
+                  <li>Use Microsoft Office Online or Google Docs</li>
+                  <li>Convert to PDF first using our Word-to-PDF tool</li>
+                  <li>Download and open in Word or LibreOffice</li>
+                  <li>Implement server-side parsing with mammoth.js or similar</li>
                 </ul>
               </div>
               
-              <div style="border: 2px solid #ddd; margin: 20px 0; padding: 20px; background: #ffffff;">
-                <h2>Slide 3: Summary</h2>
-                <p>This PowerPoint viewer would display all slides with their original formatting, animations, and multimedia content.</p>
+              <div style="margin-top: 20px; padding: 10px; background: #e2e3e5; border-radius: 6px; font-size: 0.9em;">
+                <strong>Note:</strong> Browser-based Word document parsing requires additional libraries 
+                like mammoth.js for .docx files or specialized server-side processing.
+              </div>
+            </div>
+          `);
+        } else if (['xlsx', 'xls'].includes(extension || '')) {
+          // For Excel files, show file information with limitation notice
+          setViewerContent(`
+            <div style="font-family: Arial, sans-serif; padding: 20px;">
+              <h2 style="color: #217346; margin-bottom: 16px;">📊 Excel Spreadsheet Detected</h2>
+              
+              <div style="background: #fff3cd; border: 1px solid #ffc107; padding: 12px; border-radius: 6px; margin-bottom: 20px;">
+                <strong>⚠️ Limited Preview:</strong> Full Excel file parsing requires specialized libraries. 
+                This viewer shows file information only.
               </div>
               
-              <p><em>Navigation controls would allow browsing through all slides in the presentation.</em></p>
+              <h3 style="color: #217346;">File Information</h3>
+              <div style="background: white; padding: 15px; border-radius: 6px; border-left: 4px solid #217346; margin-bottom: 20px;">
+                <p><strong>Filename:</strong> ${file.name}</p>
+                <p><strong>Size:</strong> ${(file.size / (1024 * 1024)).toFixed(2)} MB</p>
+                <p><strong>Type:</strong> Microsoft Excel Spreadsheet</p>
+                <p><strong>Last Modified:</strong> ${file.lastModified ? new Date(file.lastModified).toLocaleDateString() : 'Unknown'}</p>
+              </div>
+              
+              <h3 style="color: #217346;">For Full Spreadsheet Viewing</h3>
+              <div style="background: #d4edda; padding: 15px; border-radius: 6px;">
+                <p><strong>Recommended approaches:</strong></p>
+                <ul>
+                  <li>Use Microsoft Excel Online or Google Sheets</li>
+                  <li>Convert to CSV using our Excel tools</li>
+                  <li>Download and open in Excel or LibreOffice Calc</li>
+                  <li>Implement parsing with SheetJS (xlsx library)</li>
+                </ul>
+              </div>
+              
+              <div style="margin-top: 20px; padding: 10px; background: #e2e3e5; border-radius: 6px; font-size: 0.9em;">
+                <strong>Note:</strong> Browser-based Excel parsing can be implemented using SheetJS library 
+                to read spreadsheet data, formulas, and formatting.
+              </div>
+            </div>
+          `);
+        } else if (['pptx', 'ppt'].includes(extension || '')) {
+          // For PowerPoint files, show file information with limitation notice
+          setViewerContent(`
+            <div style="font-family: Arial, sans-serif; padding: 20px;">
+              <h2 style="color: #c43e1c; margin-bottom: 16px;">🎯 PowerPoint Presentation Detected</h2>
+              
+              <div style="background: #fff3cd; border: 1px solid #ffc107; padding: 12px; border-radius: 6px; margin-bottom: 20px;">
+                <strong>⚠️ Limited Preview:</strong> Full PowerPoint parsing requires specialized libraries. 
+                This viewer shows file information only.
+              </div>
+              
+              <h3 style="color: #c43e1c;">Presentation Information</h3>
+              <div style="background: white; padding: 15px; border-radius: 6px; border-left: 4px solid #c43e1c; margin-bottom: 20px;">
+                <p><strong>Filename:</strong> ${file.name}</p>
+                <p><strong>Size:</strong> ${(file.size / (1024 * 1024)).toFixed(2)} MB</p>
+                <p><strong>Type:</strong> Microsoft PowerPoint Presentation</p>
+                <p><strong>Last Modified:</strong> ${file.lastModified ? new Date(file.lastModified).toLocaleDateString() : 'Unknown'}</p>
+              </div>
+              
+              <h3 style="color: #c43e1c;">For Full Presentation Viewing</h3>
+              <div style="background: #f8d7da; padding: 15px; border-radius: 6px;">
+                <p><strong>Recommended approaches:</strong></p>
+                <ul>
+                  <li>Use Microsoft PowerPoint Online or Google Slides</li>
+                  <li>Convert to PDF using our PowerPoint-to-PDF tool</li>
+                  <li>Download and open in PowerPoint or LibreOffice Impress</li>
+                  <li>Implement parsing with specialized PowerPoint libraries</li>
+                </ul>
+              </div>
+              
+              <div style="margin-top: 20px; padding: 10px; background: #e2e3e5; border-radius: 6px; font-size: 0.9em;">
+                <strong>Note:</strong> Browser-based PowerPoint parsing is complex and requires 
+                specialized libraries to handle slides, animations, and multimedia content.
+              </div>
             </div>
           `);
         } else {

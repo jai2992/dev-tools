@@ -138,7 +138,6 @@ export default function ImageCompressor() {
               <div className="text-center py-12">
                 <div
                   className="border-2 border-dashed border-gray-600 rounded-lg p-8 hover:border-blue-500 transition-colors cursor-pointer"
-                  onClick={() => document.getElementById('file-input')?.click()}
                   onDragOver={(e) => e.preventDefault()}
                   onDrop={(e) => {
                     e.preventDefault();
@@ -153,9 +152,9 @@ export default function ImageCompressor() {
                   <p className="text-gray-400 mb-4">
                     Supports JPEG, PNG, WebP formats
                   </p>
-                  <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+                  <label htmlFor="file-input" className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors cursor-pointer inline-block">
                     Select Image
-                  </button>
+                  </label>
                 </div>
                 <input
                   id="file-input"

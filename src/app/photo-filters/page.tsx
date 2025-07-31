@@ -273,7 +273,6 @@ export default function PhotoFilters() {
               <div className="text-center py-12">
                 <div
                   className="border-2 border-dashed border-gray-600 rounded-lg p-8 hover:border-purple-500 transition-colors cursor-pointer"
-                  onClick={() => document.getElementById('file-input')?.click()}
                   onDragOver={(e) => e.preventDefault()}
                   onDrop={(e) => {
                     e.preventDefault();
@@ -288,9 +287,9 @@ export default function PhotoFilters() {
                   <p className="text-gray-400 mb-4">
                     Upload any image format (PNG, JPEG, WebP, etc.)
                   </p>
-                  <button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+                  <label htmlFor="file-input" className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-medium transition-colors cursor-pointer inline-block">
                     Select Image
-                  </button>
+                  </label>
                 </div>
                 <input
                   id="file-input"

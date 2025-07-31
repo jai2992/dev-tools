@@ -176,7 +176,6 @@ export default function ImageToBase64() {
           <div className="bg-gray-900 rounded-xl border border-gray-800 p-6 md:p-8 shadow-xl mb-8">
             <div
               className="border-2 border-dashed border-gray-600 rounded-lg p-8 hover:border-cyan-500 transition-colors cursor-pointer"
-              onClick={() => document.getElementById('file-input')?.click()}
               onDragOver={(e) => e.preventDefault()}
               onDrop={(e) => {
                 e.preventDefault();
@@ -192,9 +191,9 @@ export default function ImageToBase64() {
                 Supports all image formats (PNG, JPEG, WebP, SVG, etc.)
               </p>
               <div className="text-center">
-                <button className="bg-cyan-600 hover:bg-cyan-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+                <label htmlFor="file-input" className="bg-cyan-600 hover:bg-cyan-700 text-white px-6 py-3 rounded-lg font-medium transition-colors cursor-pointer inline-block">
                   Select Images
-                </button>
+                </label>
               </div>
               
               {/* File Size Warning */}
