@@ -88,6 +88,7 @@ export default function Home() {
         </a>
         <a href="/box-shadow-generator">
           <LandingCard>📦 Box Shadow</LandingCard>
+        </a>
         <a href="/css-gradient">
           <LandingCard>
             🌈 CSS Gradient
