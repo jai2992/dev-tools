@@ -11,22 +11,81 @@ export default function Home() {
       <div className="text-xs sm:text-sm pt-2">
         Our list of tools for free...
       </div>
-      <ul className="text-semibold">
-        <li>
-          <a href="/qr">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-6 max-w-6xl mx-auto">
+        {/* Existing Tools */}
+        <a href="/qr">
           <LandingCard>
-          Qr generator
+            🔲 QR Generator
           </LandingCard>
-          </a>
-        </li>
-        <li>
-          <a href="/json_validator">
+        </a>
+        <a href="/json_validator">
           <LandingCard>
-          JSON validator
+            📋 JSON Validator
           </LandingCard>
-          </a>
-        </li>
-      </ul>
+        </a>
+
+        {/* Code Development Tools */}
+        <a href="/regex-tester">
+          <LandingCard>
+            🔍 Regex Tester
+          </LandingCard>
+        </a>
+        <a href="/code-formatter">
+          <LandingCard>
+            ✨ Code Formatter
+          </LandingCard>
+        </a>
+        <a href="/code-minifier">
+          <LandingCard>
+            📦 Code Minifier
+          </LandingCard>
+        </a>
+        <a href="/css-gradient-generator">
+          <LandingCard>
+            🌈 CSS Gradient
+          </LandingCard>
+        </a>
+        <a href="/color-palette-generator">
+          <LandingCard>
+            🎨 Color Palette
+          </LandingCard>
+        </a>
+        <a href="/meta-tag-generator">
+          <LandingCard>
+            🏷️ Meta Tags
+          </LandingCard>
+        </a>
+        <a href="/box-shadow-generator">
+          <LandingCard>
+            📦 Box Shadow
+          </LandingCard>
+        </a>
+        <a href="/favicon-generator">
+          <LandingCard>
+            🌟 Favicon Generator
+          </LandingCard>
+        </a>
+        <a href="/border-radius-generator">
+          <LandingCard>
+            🔄 Border Radius
+          </LandingCard>
+        </a>
+        <a href="/flexbox-generator">
+          <LandingCard>
+            📐 Flexbox Layout
+          </LandingCard>
+        </a>
+        <a href="/css-grid-generator">
+          <LandingCard>
+            ⚡ CSS Grid
+          </LandingCard>
+        </a>
+        <a href="/htaccess-generator">
+          <LandingCard>
+            ⚙️ .htaccess Config
+          </LandingCard>
+        </a>
+      </div>
     </div>
   );
 }
