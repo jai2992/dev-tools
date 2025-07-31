@@ -80,10 +80,10 @@ export default function FileUpload({
         className="hidden"
         id="file-upload"
       />
-      <label htmlFor="file-upload">
-        <Button variant="secondary" className="cursor-pointer">
+      <label htmlFor="file-upload" className="inline-block">
+        <span className="bg-gray-700 hover:bg-gray-600 text-white font-medium rounded-lg px-4 py-2 transition-colors cursor-pointer focus:ring-2 focus:ring-blue-500 focus:border-transparent">
           Select Files
-        </Button>
+        </span>
       </label>
     </div>
   );

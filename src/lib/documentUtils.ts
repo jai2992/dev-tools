@@ -14,14 +14,27 @@ export async function convertPdfToWord(file: File): Promise<Blob> {
   const pdfDoc = await PDFDocument.load(arrayBuffer);
   const pageCount = pdfDoc.getPageCount();
   
-  let extractedText = '';
+  // Note: This is a simplified implementation. For production use, consider:
+  // - Using PDF.js for better text extraction
+  // - PDF2Text libraries for accurate text extraction
+  // - Server-side conversion services for complex documents
   
-  // This is a simplified text extraction
-  // In a real implementation, you'd use PDF.js for better text extraction
-  for (let i = 0; i < pageCount; i++) {
-    extractedText += `Page ${i + 1}\n\n`;
-    // Add placeholder text extraction logic here
-    extractedText += 'Text extracted from PDF page...\n\n';
+  let extractedText = `Document: ${file.name}\nConverted from PDF to Word format\n\n`;
+  
+  try {
+    // Attempt basic text extraction (limited functionality)
+    for (let i = 0; i < pageCount; i++) {
+      extractedText += `\n--- Page ${i + 1} ---\n`;
+      // PDF-lib doesn't provide text extraction capabilities
+      // In a real implementation, you would use PDF.js or similar
+      extractedText += `[Text content from page ${i + 1} would be extracted here using a proper PDF text extraction library]\n`;
+    }
+    
+    extractedText += `\n\nNote: This is a basic conversion. For accurate text extraction with formatting, 
+consider using specialized PDF processing libraries or server-side conversion services.`;
+    
+  } catch (error) {
+    extractedText += 'Error extracting text from PDF. File may be image-based or encrypted.';
   }
   
   const doc = new Document({
@@ -49,18 +62,35 @@ export async function convertPdfToWord(file: File): Promise<Blob> {
 
 // PDF to Excel conversion
 export async function convertPdfToExcel(file: File): Promise<Blob> {
-  // Simplified implementation - in reality, you'd extract tables from PDF
+  // Note: Real PDF table extraction requires specialized libraries like:
+  // - Tabula-js for table extraction
+  // - PDF.js for text parsing with position detection
+  // - Server-side solutions for complex table recognition
+  
   const workbook = XLSX.utils.book_new();
   
-  const sampleData = [
-    ['Data extracted from PDF', '', ''],
-    ['Column 1', 'Column 2', 'Column 3'],
-    ['Row 1 Data', 'Row 1 Data', 'Row 1 Data'],
-    ['Row 2 Data', 'Row 2 Data', 'Row 2 Data'],
+  const headerData = [
+    ['PDF to Excel Conversion - ' + file.name],
+    [''],
+    ['Note: This is a basic conversion demonstration'],
+    ['For accurate table extraction from PDFs, consider using:'],
+    ['• Tabula or similar table extraction tools'],
+    ['• PDF.js with custom parsing logic'],
+    ['• Server-side PDF processing services'],
+    [''],
+    ['File Information:'],
+    ['Original filename', file.name],
+    ['File size', `${(file.size / (1024 * 1024)).toFixed(2)} MB`],
+    ['Conversion date', new Date().toLocaleDateString()],
+    [''],
+    ['Sample Data Structure:'],
+    ['Column A', 'Column B', 'Column C', 'Column D'],
+    ['Data 1', 'Data 2', 'Data 3', 'Data 4'],
+    ['More data would be extracted from PDF tables here']
   ];
   
-  const worksheet = XLSX.utils.aoa_to_sheet(sampleData);
-  XLSX.utils.book_append_sheet(workbook, worksheet, 'Extracted Data');
+  const worksheet = XLSX.utils.aoa_to_sheet(headerData);
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'Converted Data');
   
   const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
   return new Blob([excelBuffer], { 
@@ -69,22 +99,62 @@ export async function convertPdfToExcel(file: File): Promise<Blob> {
 }
 
 // Word to PDF conversion
-export async function convertWordToPdf(_file: File): Promise<Blob> {
-  // This is a placeholder implementation
-  // Real implementation would require server-side conversion or a different approach
+export async function convertWordToPdf(file: File): Promise<Blob> {
+  // Note: Converting Word to PDF in the browser is complex and limited.
+  // For production use, consider:
+  // - Server-side conversion with LibreOffice/Pandoc
+  // - Cloud services like Google Drive API or Microsoft Graph API
+  // - Dedicated conversion services
+  
   const pdfDoc = await PDFDocument.create();
   const page = pdfDoc.addPage();
   
-  page.drawText('Converted from Word document: ' + _file.name, {
+  // Basic document information
+  page.drawText('Word to PDF Conversion', {
     x: 50,
     y: 750,
+    size: 16,
+  });
+  
+  page.drawText(`Original file: ${file.name}`, {
+    x: 50,
+    y: 720,
     size: 12,
   });
   
-  page.drawText('Content would be extracted and converted here...', {
+  page.drawText(`File size: ${(file.size / (1024 * 1024)).toFixed(2)} MB`, {
     x: 50,
     y: 700,
-    size: 10,
+    size: 12,
+  });
+  
+  page.drawText(`Converted on: ${new Date().toLocaleDateString()}`, {
+    x: 50,
+    y: 680,
+    size: 12,
+  });
+  
+  // Limitation notice
+  const noticeText = [
+    '',
+    'Note: This is a basic conversion demonstration.',
+    'Full Word document conversion requires:',
+    '',
+    '• Text extraction from .docx files',
+    '• Formatting preservation (fonts, styles, layouts)',
+    '• Image and table handling',
+    '• Header/footer processing',
+    '',
+    'For production use, implement server-side conversion',
+    'or use specialized document processing services.'
+  ];
+  
+  noticeText.forEach((line, index) => {
+    page.drawText(line, {
+      x: 50,
+      y: 640 - (index * 20),
+      size: 10,
+    });
   });
   
   const pdfBytes = await pdfDoc.save();
@@ -160,14 +230,31 @@ export async function splitPdf(file: File, pageRanges: Array<{start: number, end
 }
 
 // PDF Compressor
-export async function compressPdf(file: File, _quality: number = 0.7): Promise<Blob> {
+export async function compressPdf(file: File, quality: number = 0.7): Promise<Blob> {
   const arrayBuffer = await file.arrayBuffer();
   const pdf = await PDFDocument.load(arrayBuffer);
   
-  // This is a simplified compression - real implementation would involve image compression
+  // Note: True PDF compression requires advanced techniques:
+  // - Image compression and resampling
+  // - Font subsetting and optimization
+  // - Object stream compression
+  // - Removal of metadata and unused objects
+  
+  // This implementation provides basic optimization
   const pdfBytes = await pdf.save({
-    useObjectStreams: false,
+    useObjectStreams: true, // Enable object streams for better compression
+    addDefaultPage: false,
+    updateFieldAppearances: false,
   });
+  
+  // Calculate compression ratio for user feedback
+  const originalSize = file.size;
+  const compressedSize = pdfBytes.length;
+  const compressionRatio = ((originalSize - compressedSize) / originalSize * 100);
+  
+  // Add compression info to console for debugging
+  console.log(`PDF Compression: ${compressionRatio.toFixed(1)}% size reduction`);
+  console.log(`Original: ${(originalSize / 1024).toFixed(1)}KB -> Compressed: ${(compressedSize / 1024).toFixed(1)}KB`);
   
   return new Blob([uint8ArrayToArrayBuffer(pdfBytes)], { type: 'application/pdf' });
 }

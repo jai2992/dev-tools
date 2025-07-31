@@ -56,26 +56,62 @@ export default function EbookConverterPage() {
         setProgress(prev => Math.min(prev + 10, 90));
       }, 500);
 
-      // Simulate e-book conversion process
-      await new Promise(resolve => setTimeout(resolve, 4000));
+      // E-book conversion simulation with proper limitation notice
+      await new Promise(resolve => setTimeout(resolve, 2000));
       
       clearInterval(progressInterval);
       setProgress(100);
 
-      // Create converted file blob (placeholder)
-      const convertedBlob = new Blob([await selectedFile.arrayBuffer()], { 
-        type: targetFormat === 'pdf' ? 'application/pdf' : 'application/octet-stream' 
+      // Create a demonstration file with conversion information
+      const conversionInfo = `E-book Conversion Report
+==========================================
+
+Original File: ${selectedFile.name}
+Target Format: ${targetFormat.toUpperCase()}
+Conversion Date: ${new Date().toLocaleDateString()}
+
+IMPORTANT NOTICE:
+================
+This is a demonstration of the e-book conversion interface. 
+Real e-book conversion requires specialized libraries and processing.
+
+For actual e-book conversion, consider:
+• Calibre (command-line tool: ebook-convert)
+• Pandoc for document conversion
+• Server-side processing with specialized libraries
+• Cloud conversion services
+
+Supported conversions would include:
+• EPUB ↔ MOBI ↔ AZW3
+• PDF → EPUB (with limitations)
+• Plain text → Various formats
+• HTML → E-book formats
+
+Implementation Notes:
+====================
+- Metadata preservation (title, author, cover)
+- Table of contents generation
+- Format-specific optimization
+- DRM handling considerations
+- Font and styling conversion
+
+For production use, implement server-side conversion
+using tools like Calibre or specialized e-book libraries.
+`;
+
+      const convertedBlob = new Blob([conversionInfo], { 
+        type: 'text/plain'
       });
       
       const downloadUrl = URL.createObjectURL(convertedBlob);
       const baseName = selectedFile.name.replace(/\.[^/.]+$/, '');
-      const fileName = baseName + getFileExtension(targetFormat);
+      const fileName = baseName + '-conversion-info.txt';
 
       setResult({
         status: 'success',
         downloadUrl,
         fileName,
-        message: `E-book successfully converted to ${targetFormat.toUpperCase()} format!`
+        message: `Conversion process completed! Download includes implementation notes and requirements for ${targetFormat.toUpperCase()} conversion.`
       });
 
     } catch (error) {
