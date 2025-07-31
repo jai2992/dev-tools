@@ -20,6 +20,53 @@ export default function Home() {
           <LandingCard>📋 JSON Validator</LandingCard>
         </a>
 
+        {/* Image & Media Tools */}
+        <a href="/image-compressor">
+          <LandingCard>
+            🗜️ Image Compressor
+          </LandingCard>
+        </a>
+        <a href="/image-resizer">
+          <LandingCard>
+            📏 Image Resizer
+          </LandingCard>
+        </a>
+        <a href="/image-converter">
+          <LandingCard>
+            🔄 Image Converter
+          </LandingCard>
+        </a>
+        <a href="/color-picker">
+          <LandingCard>
+            🎨 Color Picker
+          </LandingCard>
+        </a>
+        <a href="/image-to-base64">
+          <LandingCard>
+            📝 Image to Base64
+          </LandingCard>
+        </a>
+        <a href="/barcode-generator">
+          <LandingCard>
+            📊 Barcode Generator
+          </LandingCard>
+        </a>
+        <a href="/photo-filters">
+          <LandingCard>
+            📸 Photo Filters
+          </LandingCard>
+        </a>
+        <a href="/svg-optimizer">
+          <LandingCard>
+            ⚡ SVG Optimizer
+          </LandingCard>
+        </a>
+        <a href="/meme-generator">
+          <LandingCard>
+            😂 Meme Generator
+          </LandingCard>
+        </a>
+
         {/* Code Development Tools */}
         <a href="/regex-tester">
           <LandingCard>🔍 Regex Tester</LandingCard>
@@ -41,6 +88,25 @@ export default function Home() {
         </a>
         <a href="/box-shadow-generator">
           <LandingCard>📦 Box Shadow</LandingCard>
+        <a href="/css-gradient">
+          <LandingCard>
+            🌈 CSS Gradient
+          </LandingCard>
+        </a>
+        <a href="/color-palette">
+          <LandingCard>
+            🎨 Color Palette
+          </LandingCard>
+        </a>
+        <a href="/meta-tags">
+          <LandingCard>
+            🏷️ Meta Tags
+          </LandingCard>
+        </a>
+        <a href="/box-shadow">
+          <LandingCard>
+            📦 Box Shadow
+          </LandingCard>
         </a>
         <a href="/favicon-generator">
           <LandingCard>🌟 Favicon Generator</LandingCard>
