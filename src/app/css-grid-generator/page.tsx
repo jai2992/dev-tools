@@ -40,7 +40,7 @@ export default function CSSGridGeneratorPage() {
   const [selectedItem, setSelectedItem] = useState<number | null>(null);
   const [itemSettings, setItemSettings] = useState<{ [key: number]: GridItemSettings }>({});
   const [useIndividualGaps, setUseIndividualGaps] = useState(false);
-  const [gridMode, setGridMode] = useState<'template' | 'areas'>('template');
+  const [_gridMode, _setGridMode] = useState<'template' | 'areas'>('template');
 
   const presets = [
     {
@@ -429,7 +429,7 @@ export default function CSSGridGeneratorPage() {
                   <Select
                     label="Justify Items"
                     value={gridSettings.justifyItems}
-                    onChange={(e) => updateGridSetting('justifyItems', e.target.value as any)}
+                    onChange={(e) => updateGridSetting('justifyItems', e.target.value as GridSettings['justifyItems'])}
                   >
                     <option value="stretch">Stretch</option>
                     <option value="start">Start</option>
@@ -440,7 +440,7 @@ export default function CSSGridGeneratorPage() {
                   <Select
                     label="Align Items"
                     value={gridSettings.alignItems}
-                    onChange={(e) => updateGridSetting('alignItems', e.target.value as any)}
+                    onChange={(e) => updateGridSetting('alignItems', e.target.value as GridSettings['alignItems'])}
                   >
                     <option value="stretch">Stretch</option>
                     <option value="start">Start</option>
@@ -453,7 +453,7 @@ export default function CSSGridGeneratorPage() {
                   <Select
                     label="Justify Content"
                     value={gridSettings.justifyContent}
-                    onChange={(e) => updateGridSetting('justifyContent', e.target.value as any)}
+                    onChange={(e) => updateGridSetting('justifyContent', e.target.value as GridSettings['justifyContent'])}
                   >
                     <option value="start">Start</option>
                     <option value="end">End</option>
@@ -467,7 +467,7 @@ export default function CSSGridGeneratorPage() {
                   <Select
                     label="Align Content"
                     value={gridSettings.alignContent}
-                    onChange={(e) => updateGridSetting('alignContent', e.target.value as any)}
+                    onChange={(e) => updateGridSetting('alignContent', e.target.value as GridSettings['alignContent'])}
                   >
                     <option value="start">Start</option>
                     <option value="end">End</option>
@@ -521,7 +521,7 @@ export default function CSSGridGeneratorPage() {
                     <Select
                       label="Justify Self"
                       value={getItemSettings(selectedItem).justifySelf}
-                      onChange={(e) => updateItemSetting(selectedItem, 'justifySelf', e.target.value as any)}
+                      onChange={(e) => updateItemSetting(selectedItem, 'justifySelf', e.target.value as GridItemSettings['justifySelf'])}
                     >
                       <option value="auto">Auto</option>
                       <option value="start">Start</option>
@@ -533,7 +533,7 @@ export default function CSSGridGeneratorPage() {
                     <Select
                       label="Align Self"
                       value={getItemSettings(selectedItem).alignSelf}
-                      onChange={(e) => updateItemSetting(selectedItem, 'alignSelf', e.target.value as any)}
+                      onChange={(e) => updateItemSetting(selectedItem, 'alignSelf', e.target.value as GridItemSettings['alignSelf'])}
                     >
                       <option value="auto">Auto</option>
                       <option value="start">Start</option>
@@ -614,13 +614,13 @@ export default function CSSGridGeneratorPage() {
           {/* Generated Code */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <CodeBlock
-              title="CSS"
+              filename="CSS"
               language="css"
               code={generateFullCSS()}
             />
 
             <CodeBlock
-              title="Tailwind CSS"
+              filename="Tailwind CSS"
               language="html"
               code={`<div class="${generateTailwindCSS()}">
   <div>Item 1</div>

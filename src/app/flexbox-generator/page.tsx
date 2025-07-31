@@ -322,7 +322,7 @@ export default function FlexboxGeneratorPage() {
                 <Select
                   label="Flex Direction"
                   value={flexSettings.flexDirection}
-                  onChange={(e) => updateFlexSetting('flexDirection', e.target.value as any)}
+                  onChange={(e) => updateFlexSetting('flexDirection', e.target.value as FlexSettings['flexDirection'])}
                 >
                   <option value="row">Row →</option>
                   <option value="row-reverse">Row Reverse ←</option>
@@ -333,7 +333,7 @@ export default function FlexboxGeneratorPage() {
                 <Select
                   label="Justify Content (Main Axis)"
                   value={flexSettings.justifyContent}
-                  onChange={(e) => updateFlexSetting('justifyContent', e.target.value as any)}
+                  onChange={(e) => updateFlexSetting('justifyContent', e.target.value as FlexSettings['justifyContent'])}
                 >
                   <option value="flex-start">Flex Start</option>
                   <option value="flex-end">Flex End</option>
@@ -346,7 +346,7 @@ export default function FlexboxGeneratorPage() {
                 <Select
                   label="Align Items (Cross Axis)"
                   value={flexSettings.alignItems}
-                  onChange={(e) => updateFlexSetting('alignItems', e.target.value as any)}
+                  onChange={(e) => updateFlexSetting('alignItems', e.target.value as FlexSettings['alignItems'])}
                 >
                   <option value="stretch">Stretch</option>
                   <option value="flex-start">Flex Start</option>
@@ -358,7 +358,7 @@ export default function FlexboxGeneratorPage() {
                 <Select
                   label="Flex Wrap"
                   value={flexSettings.flexWrap}
-                  onChange={(e) => updateFlexSetting('flexWrap', e.target.value as any)}
+                  onChange={(e) => updateFlexSetting('flexWrap', e.target.value as FlexSettings['flexWrap'])}
                 >
                   <option value="nowrap">No Wrap</option>
                   <option value="wrap">Wrap</option>
@@ -369,7 +369,7 @@ export default function FlexboxGeneratorPage() {
                   <Select
                     label="Align Content (Wrapped Lines)"
                     value={flexSettings.alignContent}
-                    onChange={(e) => updateFlexSetting('alignContent', e.target.value as any)}
+                    onChange={(e) => updateFlexSetting('alignContent', e.target.value as FlexSettings['alignContent'])}
                   >
                     <option value="stretch">Stretch</option>
                     <option value="flex-start">Flex Start</option>
@@ -480,7 +480,7 @@ export default function FlexboxGeneratorPage() {
                   <Select
                     label="Align Self"
                     value={getItemSettings(selectedItem).alignSelf}
-                    onChange={(e) => updateItemSetting(selectedItem, 'alignSelf', e.target.value as any)}
+                    onChange={(e) => updateItemSetting(selectedItem, 'alignSelf', e.target.value as FlexItemSettings['alignSelf'])}
                   >
                     <option value="auto">Auto</option>
                     <option value="flex-start">Flex Start</option>
@@ -572,7 +572,7 @@ export default function FlexboxGeneratorPage() {
                   <li>• <strong>flex-grow:</strong> How much item grows</li>
                   <li>• <strong>flex-shrink:</strong> How much item shrinks</li>
                   <li>• <strong>flex-basis:</strong> Initial size before growing/shrinking</li>
-                  <li>• <strong>align-self:</strong> Override container's align-items</li>
+                  <li>• <strong>align-self:</strong> Override container&apos;s align-items</li>
                 </ul>
               </div>
               <div>

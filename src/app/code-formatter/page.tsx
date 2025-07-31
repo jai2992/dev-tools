@@ -62,6 +62,7 @@ export default function CodeFormatterPage() {
   const formatCode = useCallback(async () => {
     if (!inputCode.trim()) {
       setOutputCode('');
+      setError('');
       return;
     }
 
@@ -69,8 +70,8 @@ export default function CodeFormatterPage() {
     setError('');
 
     try {
-      let formatted = '';
-      const indent = indentType === 'tabs' ? '\t' : ' '.repeat(indentSize);
+      const indent = indentType === 'tab' ? '	' : ' '.repeat(indentSize);
+      let formatted: string;
 
       switch (selectedLanguage) {
         case 'javascript':
@@ -104,53 +105,53 @@ export default function CodeFormatterPage() {
     }
   }, [inputCode, selectedLanguage, indentType, indentSize]);
 
-  const formatJavaScript = (code: string, indent: string): string => {
+  const formatJavaScript = useCallback((code: string, indent: string): string => {
     // Basic JavaScript formatting
-    let formatted = code
+    const formatted = code
       .replace(/\s*{\s*/g, ' {\n')
       .replace(/;\s*(?=\w)/g, ';\n')
       .replace(/}\s*(?=\w)/g, '}\n')
       .replace(/,\s*(?=\w)/g, ',\n');
 
     return addIndentation(formatted, indent);
-  };
+  }, []);
 
-  const formatHTML = (code: string, indent: string): string => {
-    let formatted = code
+  const formatHTML = useCallback((code: string, indent: string): string => {
+    const formatted = code
       .replace(/></g, '>\n<')
       .replace(/^\s+|\s+$/g, '');
 
     return addIndentation(formatted, indent);
-  };
+  }, []);
 
-  const formatCSS = (code: string, indent: string): string => {
-    let formatted = code
+  const formatCSS = useCallback((code: string, indent: string): string => {
+    const formatted = code
       .replace(/{\s*/g, ' {\n')
       .replace(/;\s*/g, ';\n')
       .replace(/}\s*/g, '\n}\n')
       .replace(/,\s*(?=[\w.])/g, ',\n');
 
     return addIndentation(formatted, indent);
-  };
+  }, []);
 
-  const formatJSON = (code: string, indent: string): string => {
+  const formatJSON = useCallback((code: string, indent: string): string => {
     try {
       const parsed = JSON.parse(code);
       return JSON.stringify(parsed, null, indent);
     } catch {
       throw new Error('Invalid JSON syntax');
     }
-  };
+  }, []);
 
-  const formatXML = (code: string, indent: string): string => {
-    let formatted = code
+  const formatXML = useCallback((code: string, indent: string): string => {
+    const formatted = code
       .replace(/></g, '>\n<')
       .replace(/^\s+|\s+$/g, '');
 
     return addIndentation(formatted, indent);
-  };
+  }, []);
 
-  const formatSQL = (code: string, indent: string): string => {
+  const formatSQL = (code: string, _indent: string): string => {
     const keywords = ['SELECT', 'FROM', 'WHERE', 'JOIN', 'INNER JOIN', 'LEFT JOIN', 'RIGHT JOIN', 'ORDER BY', 'GROUP BY', 'HAVING', 'INSERT', 'UPDATE', 'DELETE', 'CREATE', 'ALTER', 'DROP'];
     
     let formatted = code.toUpperCase();
@@ -189,7 +190,7 @@ export default function CodeFormatterPage() {
       await navigator.clipboard.writeText(text);
       setCopyFeedback('Copied!');
       setTimeout(() => setCopyFeedback(''), 2000);
-    } catch (err) {
+    } catch (_err) {
       setCopyFeedback('Failed to copy');
       setTimeout(() => setCopyFeedback(''), 2000);
     }

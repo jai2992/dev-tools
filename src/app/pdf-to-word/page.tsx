@@ -162,7 +162,7 @@ export default function PdfToWordPage() {
               <h3 className="text-lg font-semibold text-white mb-3">How It Works</h3>
               <ol className="space-y-2 text-gray-300">
                 <li>1. Upload your PDF file</li>
-                <li>2. Click "Convert to Word"</li>
+                <li>2. Click &quot;Convert to Word&quot;</li>
                 <li>3. Wait for processing to complete</li>
                 <li>4. Download your .docx file</li>
                 <li>5. Open and edit in Microsoft Word</li>

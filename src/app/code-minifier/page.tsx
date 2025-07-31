@@ -244,7 +244,7 @@ const finalTotal = calculateTotal(items) * (1 + taxRate);`,
     try {
       const parsed = JSON.parse(code);
       return JSON.stringify(parsed);
-    } catch (err) {
+    } catch (_err) {
       throw new Error('Invalid JSON syntax');
     }
   };
@@ -318,7 +318,7 @@ const finalTotal = calculateTotal(items) * (1 + taxRate);`,
         try {
           const parsed = JSON.parse(beautified);
           beautified = JSON.stringify(parsed, null, 2);
-        } catch (err) {
+        } catch (_err) {
           // Keep original if parsing fails
         }
         break;

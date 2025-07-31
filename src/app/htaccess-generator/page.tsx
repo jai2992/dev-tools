@@ -89,7 +89,7 @@ export default function HtaccessGeneratorPage() {
     setRedirects([...redirects, newRedirect]);
   };
 
-  const updateRedirect = (id: string, field: keyof RedirectRule, value: any) => {
+  const updateRedirect = (id: string, field: keyof RedirectRule, value: string | boolean) => {
     setRedirects(redirects.map(redirect => 
       redirect.id === id ? { ...redirect, [field]: value } : redirect
     ));
@@ -463,7 +463,7 @@ export default function HtaccessGeneratorPage() {
           >
             {redirects.length === 0 ? (
               <div className="text-center py-8 text-gray-400">
-                No redirects configured. Click "Add Redirect" to create one.
+                No redirects configured. Click &quot;Add Redirect&quot; to create one.
               </div>
             ) : (
               <div className="space-y-4">
@@ -584,7 +584,7 @@ export default function HtaccessGeneratorPage() {
                 <h4 className="font-medium text-blue-400 mb-2">Installation</h4>
                 <ul className="space-y-1">
                   <li>• Download the generated .htaccess file</li>
-                  <li>• Upload it to your website's root directory</li>
+                  <li>• Upload it to your website&apos;s root directory</li>
                   <li>• Ensure your server supports Apache mod_rewrite</li>
                   <li>• Test redirects and functionality</li>
                   <li>• Monitor server error logs for issues</li>
@@ -615,7 +615,7 @@ export default function HtaccessGeneratorPage() {
                 <ul className="space-y-1">
                   <li>• Check server supports required modules</li>
                   <li>• Verify correct file permissions (644)</li>
-                  <li>• Test redirects don't create loops</li>
+                  <li>• Test redirects don&apos;t create loops</li>
                   <li>• Monitor server error logs</li>
                   <li>• Backup existing .htaccess before replacing</li>
                 </ul>

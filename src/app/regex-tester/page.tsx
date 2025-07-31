@@ -77,9 +77,9 @@ export default function RegexTesterPage() {
   const [isValid, setIsValid] = useState(true);
   const [copyFeedback, setCopyFeedback] = useState('');
 
-  const debounce = useCallback((func: Function, wait: number) => {
+  const debounce = useCallback(<T extends (...args: Parameters<T>) => ReturnType<T>>(func: T, wait: number) => {
     let timeout: NodeJS.Timeout;
-    return function executedFunction(...args: any[]) {
+    return function executedFunction(...args: Parameters<T>) {
       const later = () => {
         clearTimeout(timeout);
         func(...args);
@@ -143,7 +143,7 @@ export default function RegexTesterPage() {
 
   const debouncedTestRegex = useCallback(
     debounce(testRegex, 300),
-    [testRegex]
+    [debounce, testRegex]
   );
 
   useEffect(() => {
@@ -217,7 +217,7 @@ export default function RegexTesterPage() {
       await navigator.clipboard.writeText(text);
       setCopyFeedback(`${type} copied!`);
       setTimeout(() => setCopyFeedback(''), 2000);
-    } catch (err) {
+    } catch (_err) {
       setCopyFeedback('Failed to copy');
       setTimeout(() => setCopyFeedback(''), 2000);
     }
@@ -377,11 +377,11 @@ export default function RegexTesterPage() {
                       <div className="space-y-2 max-h-32 overflow-y-auto">
                         {matches.map((match, index) => (
                           <div key={index} className="bg-gray-800 border border-gray-700 rounded p-2 text-sm">
-                            <div className="text-yellow-400 font-mono">"{match.match}"</div>
+                            <div className="text-yellow-400 font-mono">&quot;{match.match}&quot;</div>
                             <div className="text-gray-400">Index: {match.index}</div>
                             {match.groups && match.groups.length > 0 && (
                               <div className="text-blue-400">
-                                Groups: {match.groups.map((group, i) => `$${i + 1}: "${group}"`).join(', ')}
+                                Groups: {match.groups.map((group, i) => `$${i + 1}: &quot;${group}&quot;`).join(', ')}
                               </div>
                             )}
                           </div>

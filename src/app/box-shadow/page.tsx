@@ -145,13 +145,11 @@ export default function BoxShadowPage() {
     }
   };
 
-  const updateShadow = (id: string, field: keyof BoxShadow, value: any) => {
+  const updateShadow = (id: string, property: keyof Omit<BoxShadow, 'id'>, value: number | string | boolean) => {
     setShadows(shadows.map(shadow => 
-      shadow.id === id ? { ...shadow, [field]: value } : shadow
+      shadow.id === id ? { ...shadow, [property]: value } : shadow
     ));
-  };
-
-  const loadPreset = (preset: ShadowPreset) => {
+  };  const loadPreset = (preset: ShadowPreset) => {
     const newShadows = preset.shadows.map((shadow, index) => ({
       ...shadow,
       id: (Date.now() + index).toString()
@@ -164,7 +162,7 @@ export default function BoxShadowPage() {
       await navigator.clipboard.writeText(cssCode);
       setCopyFeedback('CSS copied!');
       setTimeout(() => setCopyFeedback(''), 2000);
-    } catch (err) {
+    } catch (_err) {
       setCopyFeedback('Failed to copy');
       setTimeout(() => setCopyFeedback(''), 2000);
     }

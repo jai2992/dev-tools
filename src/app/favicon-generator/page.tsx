@@ -35,7 +35,7 @@ export default function FaviconGeneratorPage() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [selectedBg, setSelectedBg] = useState<string>('color');
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const _canvasRef = useRef<HTMLCanvasElement>(null);
 
   const backgroundOptions = [
     { value: 'color', label: 'Solid Color' },
@@ -462,7 +462,7 @@ export default function FaviconGeneratorPage() {
                 <h4 className="font-medium text-blue-400 mb-2">Installation</h4>
                 <ul className="space-y-1">
                   <li>• Download all generated favicon files</li>
-                  <li>• Upload them to your website's root directory</li>
+                  <li>• Upload them to your website&apos;s root directory</li>
                   <li>• Copy the HTML code to your &lt;head&gt; section</li>
                   <li>• Test across different browsers and devices</li>
                   <li>• Update your web app manifest if needed</li>
