@@ -33,31 +33,30 @@ export default function OcrTextExtractionPage() {
         setProgress(prev => Math.min(prev + 5, 90));
       }, 500);
 
-      // Simulate text extraction (in real implementation, use Tesseract.js)
-      await new Promise(resolve => setTimeout(resolve, 3000));
+      // Actual OCR implementation using Tesseract.js
+      const { createWorker } = await import('tesseract.js');
+      const worker = await createWorker('eng');
+      
+      // Convert file to image URL
+      const imageUrl = URL.createObjectURL(selectedFile);
+      
+      // Perform OCR
+      const { data: { text } } = await worker.recognize(imageUrl);
+      await worker.terminate();
       
       clearInterval(progressInterval);
       setProgress(100);
+      
+      URL.revokeObjectURL(imageUrl);
+      
+      if (!text.trim()) {
+        throw new Error('No text could be extracted from the image');
+      }
 
-      const sampleText = `Sample extracted text from ${selectedFile.name}
-
-This is a demonstration of OCR text extraction. In a real implementation, this would use Tesseract.js to perform optical character recognition on the uploaded image or PDF.
-
-The extracted text would appear here, maintaining the original structure and formatting as much as possible.
-
-Features would include:
-• Multi-language support
-• High accuracy text recognition
-• Formatting preservation
-• Editable output
-• Copy to clipboard functionality
-
-This tool would support common image formats like PNG, JPEG, and PDF files with scanned content.`;
-
-      setExtractedText(sampleText);
+      setExtractedText(text);
       setResult({
         status: 'success',
-        message: `Successfully extracted ${sampleText.split(' ').length} words from the image!`
+        message: `Successfully extracted ${text.split(' ').length} words from the image!`
       });
 
     } catch (error) {

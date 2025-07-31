@@ -322,13 +322,13 @@ export default function MemeGenerator() {
                 {/* Custom Image Upload */}
                 <div className="mt-4 pt-4 border-t border-gray-700">
                   <h4 className="text-md font-semibold text-gray-300 mb-3">Or Upload Custom Image</h4>
-                  <div
-                    className="border-2 border-dashed border-gray-600 rounded-lg p-4 hover:border-yellow-500 transition-colors cursor-pointer text-center"
-                    onClick={() => document.getElementById('custom-image-input')?.click()}
+                  <label
+                    htmlFor="custom-image-input"
+                    className="border-2 border-dashed border-gray-600 rounded-lg p-4 hover:border-yellow-500 transition-colors cursor-pointer text-center block"
                   >
                     <PhotoIcon className="w-8 h-8 mx-auto text-gray-400 mb-2" />
                     <p className="text-sm text-gray-400">Click to upload</p>
-                  </div>
+                  </label>
                   <input
                     id="custom-image-input"
                     type="file"

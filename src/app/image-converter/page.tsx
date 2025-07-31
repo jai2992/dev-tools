@@ -190,7 +190,6 @@ export default function ImageConverter() {
             <div className="mb-8">
               <div
                 className="border-2 border-dashed border-gray-600 rounded-lg p-8 hover:border-green-500 transition-colors cursor-pointer"
-                onClick={() => document.getElementById('file-input')?.click()}
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={(e) => {
                   e.preventDefault();
@@ -206,9 +205,9 @@ export default function ImageConverter() {
                   Supports PNG, JPEG, WebP, GIF, BMP formats
                 </p>
                 <div className="text-center">
-                  <button className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+                  <label htmlFor="file-input" className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition-colors cursor-pointer inline-block">
                     Select Images
-                  </button>
+                  </label>
                 </div>
               </div>
               <input
