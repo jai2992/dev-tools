@@ -2,6 +2,13 @@
 
 import { useState, useCallback } from 'react';
 import Head from 'next/head';
+import PageLayout from '../../components/layout/PageLayout';
+import Button from '../../components/common/Button';
+import Card from '../../components/common/Card';
+import Select from '../../components/common/Select';
+import Textarea from '../../components/common/Textarea';
+import CodeBlock from '../../components/common/CodeBlock';
+import TextResultDisplay from '../../components/common/TextResultDisplay';
 
 interface LanguageConfig {
   name: string;
@@ -222,7 +229,7 @@ export default function CodeFormatterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <>
       <Head>
         <title>Code Formatter | Free Online Multi-Language Code Beautifier | devtools.software</title>
         <meta name="description" content="Format and beautify HTML, CSS, JavaScript, JSON, XML, and SQL code online. Free code formatter with customizable indentation and syntax validation." />
@@ -232,156 +239,130 @@ export default function CodeFormatterPage() {
         <meta name="robots" content="index,follow" />
       </Head>
 
-      <header className="bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 py-8">
-        <div className="container mx-auto px-4">
-          <h1 className="text-3xl md:text-4xl font-black text-white">Code Formatter</h1>
-          <p className="text-lg md:text-xl text-blue-100 mt-2">Format and beautify code for multiple programming languages</p>
-        </div>
-      </header>
-
-      <main className="container mx-auto px-4 py-8">
+      <PageLayout 
+        title="Code Formatter" 
+        description="Format and beautify code for multiple programming languages"
+      >
         <div className="max-w-6xl mx-auto space-y-6">
           {/* Controls */}
-          <div className="bg-gray-900 rounded-xl border border-gray-800 p-6 shadow-xl">
+          <Card variant="default" padding="lg">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div>
-                <label htmlFor="language" className="block text-sm font-medium text-gray-300 mb-2">
-                  Language
-                </label>
-                <select
-                  id="language"
-                  value={selectedLanguage}
-                  onChange={(e) => setSelectedLanguage(e.target.value)}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                >
-                  {languages.map(lang => (
-                    <option key={lang.id} value={lang.id}>{lang.name}</option>
-                  ))}
-                </select>
-              </div>
+              <Select
+                label="Language"
+                value={selectedLanguage}
+                onChange={(e) => setSelectedLanguage(e.target.value)}
+                options={languages.map(lang => ({ value: lang.id, label: lang.name }))}
+              />
 
-              <div>
-                <label htmlFor="indentType" className="block text-sm font-medium text-gray-300 mb-2">
-                  Indentation
-                </label>
-                <select
-                  id="indentType"
-                  value={indentType}
-                  onChange={(e) => setIndentType(e.target.value)}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                >
-                  <option value="spaces">Spaces</option>
-                  <option value="tabs">Tabs</option>
-                </select>
-              </div>
+              <Select
+                label="Indentation"
+                value={indentType}
+                onChange={(e) => setIndentType(e.target.value)}
+                options={[
+                  { value: 'spaces', label: 'Spaces' },
+                  { value: 'tabs', label: 'Tabs' }
+                ]}
+              />
 
               {indentType === 'spaces' && (
-                <div>
-                  <label htmlFor="indentSize" className="block text-sm font-medium text-gray-300 mb-2">
-                    Indent Size
-                  </label>
-                  <select
-                    id="indentSize"
-                    value={indentSize}
-                    onChange={(e) => setIndentSize(Number(e.target.value))}
-                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  >
-                    <option value={2}>2 spaces</option>
-                    <option value={4}>4 spaces</option>
-                    <option value={8}>8 spaces</option>
-                  </select>
-                </div>
+                <Select
+                  label="Indent Size"
+                  value={indentSize.toString()}
+                  onChange={(e) => setIndentSize(Number(e.target.value))}
+                  options={[
+                    { value: '2', label: '2 spaces' },
+                    { value: '4', label: '4 spaces' },
+                    { value: '8', label: '8 spaces' }
+                  ]}
+                />
               )}
             </div>
 
-            <div className="flex flex-wrap gap-2 mt-4">
-              <button
+            <div className="flex flex-wrap gap-3 mt-6">
+              <Button
+                variant="primary"
+                size="md"
                 onClick={formatCode}
                 disabled={isFormatting || !inputCode.trim()}
-                className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 px-4 py-2 rounded-lg transition-colors"
+                loading={isFormatting}
               >
-                {isFormatting ? '🔄 Formatting...' : '✨ Format Code'}
-              </button>
-              <button
+                {isFormatting ? 'Formatting...' : 'Format Code'}
+              </Button>
+              <Button
+                variant="secondary"
+                size="md"
                 onClick={loadExample}
-                className="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-lg transition-colors"
               >
-                📝 Load Example
-              </button>
-              <button
+                Load Example
+              </Button>
+              <Button
+                variant="ghost"
+                size="md"
                 onClick={clearAll}
-                className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg transition-colors"
               >
-                🗑️ Clear All
-              </button>
+                Clear All
+              </Button>
             </div>
-          </div>
+          </Card>
 
           {/* Input/Output */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Input */}
-            <div className="bg-gray-900 rounded-xl border border-gray-800 p-6 shadow-xl">
+            <Card variant="default" padding="lg">
               <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-semibold text-white">Input Code</h3>
-                <span className="text-sm text-gray-400">{inputCode.length} characters</span>
+                <h3 className="text-lg font-semibold text-[var(--color-text-primary)]">Input Code</h3>
+                <span className="text-sm text-[var(--color-text-secondary)]">{inputCode.length} characters</span>
               </div>
-              <textarea
+              <Textarea
                 value={inputCode}
                 onChange={(e) => setInputCode(e.target.value)}
                 placeholder={languages.find(l => l.id === selectedLanguage)?.placeholder}
                 rows={20}
-                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white font-mono text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-vertical"
+                className="font-mono text-sm"
               />
-            </div>
+            </Card>
 
             {/* Output */}
-            <div className="bg-gray-900 rounded-xl border border-gray-800 p-6 shadow-xl">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-semibold text-white">Formatted Code</h3>
-                <div className="flex gap-2">
-                  {outputCode && (
-                    <>
-                      <button
-                        onClick={() => copyToClipboard(outputCode)}
-                        className="bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded text-sm transition-colors"
-                      >
-                        📋 Copy
-                      </button>
-                      <button
-                        onClick={downloadCode}
-                        className="bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded text-sm transition-colors"
-                      >
-                        💾 Download
-                      </button>
-                    </>
-                  )}
-                  {copyFeedback && (
-                    <span className="text-green-400 text-sm py-1">{copyFeedback}</span>
-                  )}
-                </div>
-              </div>
-              
+            <Card variant="default" padding="lg">
               {error && (
-                <div className="bg-red-900 border border-red-700 rounded-lg p-4 mb-4">
-                  <p className="text-red-400">{error}</p>
+                <div className="bg-[var(--color-error)]/10 border border-[var(--color-error)]/20 rounded-lg p-4 mb-4">
+                  <p className="text-[var(--color-error)]">{error}</p>
                 </div>
               )}
 
-              <div className="bg-gray-800 border border-gray-700 rounded-lg p-4 min-h-[480px]">
-                <pre className="text-white font-mono text-sm whitespace-pre-wrap overflow-auto">
-                  {outputCode || (inputCode ? 'Click "Format Code" to see the result' : 'Enter code to format')}
-                </pre>
-              </div>
-            </div>
+              {outputCode ? (
+                <TextResultDisplay
+                  title="Formatted Code"
+                  result={outputCode}
+                  type={selectedLanguage as any}
+                  downloadable={true}
+                  filename={`formatted-code.${selectedLanguage === 'javascript' ? 'js' : selectedLanguage}`}
+                  maxHeight="500px"
+                  showLineNumbers={true}
+                  wrap={false}
+                />
+              ) : (
+                <div className="text-center py-12 text-[var(--color-text-secondary)]">
+                  <div className="text-center">
+                    <div className="w-16 h-16 mx-auto mb-4 text-[var(--color-text-secondary)]">
+                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" className="w-full h-full">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                      </svg>
+                    </div>
+                    <p>{inputCode ? 'Click "Format Code" to see the result' : 'Enter code to format'}</p>
+                  </div>
+                </div>
+              )}
+            </Card>
           </div>
 
           {/* Usage Instructions */}
-          <div className="bg-gray-900 rounded-xl border border-gray-800 p-6 shadow-xl">
-            <h3 className="text-lg font-semibold text-white mb-4">How to Use</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-300">
+          <Card variant="outlined" padding="lg">
+            <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-4">How to Use</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <h4 className="font-medium text-blue-400 mb-2">Supported Languages</h4>
-                <ul className="space-y-1">
+                <h4 className="font-medium text-[var(--color-text-primary)] mb-3">Supported Languages</h4>
+                <ul className="space-y-2 text-sm text-[var(--color-text-secondary)]">
                   <li>• JavaScript - Format JS code with proper indentation</li>
                   <li>• HTML - Clean up HTML structure and formatting</li>
                   <li>• CSS - Organize CSS rules and properties</li>
@@ -391,8 +372,8 @@ export default function CodeFormatterPage() {
                 </ul>
               </div>
               <div>
-                <h4 className="font-medium text-blue-400 mb-2">Features</h4>
-                <ul className="space-y-1">
+                <h4 className="font-medium text-[var(--color-text-primary)] mb-3">Features</h4>
+                <ul className="space-y-2 text-sm text-[var(--color-text-secondary)]">
                   <li>• Customizable indentation (spaces or tabs)</li>
                   <li>• Syntax validation for JSON</li>
                   <li>• Before/after comparison</li>
@@ -402,9 +383,9 @@ export default function CodeFormatterPage() {
                 </ul>
               </div>
             </div>
-          </div>
+          </Card>
         </div>
-      </main>
-    </div>
+      </PageLayout>
+    </>)
   );
 }

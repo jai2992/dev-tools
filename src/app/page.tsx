@@ -3,9 +3,10 @@ import React, { useState, useMemo } from "react";
 import Hero from "./components/Hero";
 import SearchBar from "./components/SearchBar";
 import CategoryFilter from "./components/CategoryFilter";
-import EnhancedLandingCard from "./components/EnhancedLandingCard";
+import ToolCard from "../components/common/ToolCard";
 import FeaturesSection from "./components/FeaturesSection";
 import StatsSection from "./components/StatsSection";
+import Button from "../components/common/Button";
 import { toolsData, getToolsByCategory, searchTools } from "./components/toolsData";
 
 export default function Home() {
@@ -70,16 +71,17 @@ export default function Home() {
           {/* Tools Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredTools.map((tool, index) => (
-              <EnhancedLandingCard
+              <ToolCard
                 key={tool.id}
-                href={tool.href}
-                icon={tool.icon}
-                category={tool.category}
+                title={tool.name}
                 description={tool.description}
-                delay={index * 0.05}
-              >
-                {tool.name}
-              </EnhancedLandingCard>
+                href={tool.href}
+                icon={<span className="text-2xl">{tool.icon}</span>}
+                category={tool.category}
+                variant="default"
+                className="animate-fade-in"
+                style={{ animationDelay: `${index * 0.05}s` }}
+              />
             ))}
           </div>
 
@@ -91,15 +93,16 @@ export default function Home() {
               <p className="text-gray-400 mb-6">
                 Try adjusting your search terms or browse by category
               </p>
-              <button
+              <Button
+                variant="primary"
+                size="lg"
                 onClick={() => {
                   setSearchQuery("");
                   setActiveCategory("all");
                 }}
-                className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-full font-medium transition-all duration-300 hover:scale-105 transform"
               >
                 Show All Tools
-              </button>
+              </Button>
             </div>
           )}
         </div>
@@ -119,22 +122,31 @@ export default function Home() {
             Choose any tool above and start being more productive today. No sign-up required!
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-slideUp animation-delay-400">
-            <button
+            <Button
+              variant="primary"
+              size="lg"
               onClick={() => {
                 setSearchQuery("");
                 setActiveCategory("all");
                 document.querySelector('.grid')?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white rounded-full font-semibold transition-all duration-300 shadow-lg shadow-blue-500/25 hover:scale-105 transform"
+              className="px-8 py-4"
             >
               Browse All Tools
-            </button>
-            <a
-              href="#features"
-              className="px-8 py-4 border border-gray-600 hover:border-blue-500 text-gray-300 hover:text-white rounded-full font-semibold transition-all duration-300 hover:scale-105 transform"
+            </Button>
+            <Button
+              variant="secondary"
+              size="lg"
+              onClick={() => {
+                const featuresSection = document.getElementById('features');
+                if (featuresSection) {
+                  featuresSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className="px-8 py-4"
             >
               Learn More
-            </a>
+            </Button>
           </div>
         </section>
 
