@@ -1,8 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import PageHeader from "@/components/common/PageHeader";
-import Button from "@/components/common/Button";
+import { ClipboardIcon, ArrowDownTrayIcon } from '@heroicons/react/24/outline';
+import PageLayout from "../../components/layout/PageLayout";
+import Button from "../../components/common/Button";
+import Input from "../../components/common/Input";
+import LoadingSpinner from "../../components/ui/LoadingSpinner";
 
 interface PasswordOptions {
   length: number;
@@ -223,13 +226,10 @@ export default function PasswordGeneratorPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      <PageHeader
-        title="🔐 Password Generator"
-        description="Generate secure passwords with customizable options and strength analysis"
-      />
-
-      <main className="container mx-auto px-4 py-8">
+    <PageLayout 
+      title="🔐 Password Generator" 
+      description="Generate secure passwords with customizable options and strength analysis"
+    >
         <div className="max-w-4xl mx-auto">
           {/* Tool Interface */}
           <div className="bg-gray-900 rounded-xl border border-gray-800 p-6 md:p-8 shadow-xl mb-8">
@@ -579,7 +579,6 @@ export default function PasswordGeneratorPage() {
             </div>
           </div>
         </div>
-      </main>
-    </div>
+    </PageLayout>
   );
 }

@@ -1,0 +1,125 @@
+/* Design System Variables */
+:root {
+  /* Color System - Black & White with Gray Tones */
+  --color-primary-black: #000000;
+  --color-surface-black: #0a0a0a;
+  --color-dark-gray: #1a1a1a;
+  --color-medium-gray: #2a2a2a;
+  --color-light-gray: #666666;
+  --color-pure-white: #ffffff;
+  --color-off-white: #f5f5f5;
+  
+  /* Semantic Color Mappings */
+  --color-background: var(--color-surface-black);
+  --color-surface: var(--color-dark-gray);
+  --color-surface-elevated: var(--color-medium-gray);
+  --color-border: var(--color-medium-gray);
+  --color-border-subtle: #333333;
+  --color-text-primary: var(--color-pure-white);
+  --color-text-secondary: var(--color-light-gray);
+  --color-text-inverse: var(--color-primary-black);
+  
+  /* Interactive States */
+  --color-hover: rgba(255, 255, 255, 0.05);
+  --color-active: rgba(255, 255, 255, 0.1);
+  --color-focus: var(--color-pure-white);
+  --color-disabled: #444444;
+  
+  /* Status Colors */
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+  
+  /* Typography System */
+  --font-family-primary: 'Inter Variable', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-family-mono: 'JetBrains Mono Variable', 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
+  
+  /* Font Sizes */
+  --font-size-display: 3rem;        /* 48px */
+  --font-size-h1: 2.25rem;          /* 36px */
+  --font-size-h2: 1.5rem;           /* 24px */
+  --font-size-h3: 1.25rem;          /* 20px */
+  --font-size-body-large: 1.125rem; /* 18px */
+  --font-size-body: 1rem;           /* 16px */
+  --font-size-body-small: 0.875rem; /* 14px */
+  --font-size-caption: 0.75rem;     /* 12px */
+  
+  /* Line Heights */
+  --line-height-display: 3.25rem;   /* 52px */
+  --line-height-h1: 2.5rem;         /* 40px */
+  --line-height-h2: 1.75rem;        /* 28px */
+  --line-height-h3: 1.5rem;         /* 24px */
+  --line-height-body-large: 1.625rem; /* 26px */
+  --line-height-body: 1.5rem;       /* 24px */
+  --line-height-body-small: 1.25rem; /* 20px */
+  --line-height-caption: 1rem;      /* 16px */
+  
+  /* Font Weights */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-black: 900;
+  
+  /* Spacing Scale */
+  --spacing-xs: 0.25rem;   /* 4px */
+  --spacing-sm: 0.5rem;    /* 8px */
+  --spacing-md: 0.75rem;   /* 12px */
+  --spacing-lg: 1rem;      /* 16px */
+  --spacing-xl: 1.5rem;    /* 24px */
+  --spacing-2xl: 2rem;     /* 32px */
+  --spacing-3xl: 3rem;     /* 48px */
+  --spacing-4xl: 4rem;     /* 64px */
+  --spacing-5xl: 6rem;     /* 96px */
+  
+  /* Border Radius */
+  --radius-sm: 0.375rem;   /* 6px */
+  --radius-md: 0.5rem;     /* 8px */
+  --radius-lg: 0.75rem;    /* 12px */
+  --radius-xl: 1rem;       /* 16px */
+  --radius-full: 9999px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-glow: 0 0 0 1px var(--color-pure-white);
+  
+  /* Animation Timing */
+  --duration-fast: 150ms;
+  --duration-normal: 200ms;
+  --duration-slow: 300ms;
+  --duration-slower: 400ms;
+  
+  /* Animation Easing */
+  --ease-out: cubic-bezier(0.0, 0.0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0.0, 1, 1);
+  --ease-in-out: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  
+  /* Breakpoints */
+  --breakpoint-mobile: 320px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1024px;
+  --breakpoint-wide: 1440px;
+  
+  /* Z-Index Scale */
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+  --z-toast: 1080;
+}
+
+/* Dark theme is default, but we can add light theme support later */
+@media (prefers-color-scheme: light) {
+  :root {
+    /* Light theme overrides would go here if needed */
+  }
+}

@@ -12,9 +12,15 @@ import {
   CodeBracketIcon,
   CubeIcon
 } from '@heroicons/react/24/outline'
-import PageHeader from '../../components/common/PageHeader'
+import PageLayout from '../../components/layout/PageLayout'
 import Button from '../../components/common/Button'
 import Textarea from '../../components/common/Textarea'
+import Card from '../../components/common/Card'
+import Select from '../../components/common/Select'
+import Input from '../../components/common/Input'
+import CodeBlock from '../../components/common/CodeBlock'
+import ErrorState from '../../components/ui/ErrorState'
+import LoadingSpinner from '../../components/ui/LoadingSpinner'
 
 interface JsonError {
   line: number
@@ -250,13 +256,10 @@ export default function JsonFormatter() {
   }, [validateAndFormat])
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      <PageHeader 
-        title="JSON Formatter & Validator" 
-        description="Format, validate, and explore JSON data with advanced features"
-      />
-      
-      <main className="container mx-auto px-4 py-8">
+    <PageLayout 
+      title="JSON Formatter & Validator" 
+      description="Format, validate, and explore JSON data with advanced features"
+    >
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Input Section */}
@@ -463,8 +466,7 @@ export default function JsonFormatter() {
             </div>
           </div>
         </div>
-      </main>
-    </div>
+    </PageLayout>
   )
 }
 

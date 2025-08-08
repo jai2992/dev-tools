@@ -2,6 +2,14 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { QrCodeIcon, SwatchIcon, CogIcon, ArrowDownTrayIcon } from '@heroicons/react/24/outline';
+import PageLayout from '../../components/layout/PageLayout';
+import Button from '../../components/common/Button';
+import Textarea from '../../components/common/Textarea';
+import Card from '../../components/common/Card';
+import Select from '../../components/common/Select';
+import Input from '../../components/common/Input';
+import LoadingSpinner from '../../components/ui/LoadingSpinner';
+import ErrorState from '../../components/ui/ErrorState';
 
 interface QRConfig {
   text: string;
@@ -218,32 +226,10 @@ export default function QRCodeGenerator() {
   }, [config, wifiConfig, vcardConfig]);
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      {/* Header */}
-      <header className="bg-gradient-to-r from-violet-600 via-purple-500 to-indigo-600 py-8">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center gap-4 mb-4">
-            <QrCodeIcon className="w-10 h-10 text-white" />
-            <div>
-              <h1 className="text-3xl md:text-4xl font-black text-white">
-                Enhanced QR Code Generator
-              </h1>
-              <p className="text-lg md:text-xl text-violet-100 mt-2">
-                Create customizable QR codes with logos and multiple formats
-              </p>
-            </div>
-          </div>
-          
-          <div className="flex flex-wrap gap-2">
-            <span className="bg-violet-500/20 text-violet-200 px-3 py-1 rounded-full text-sm">Custom Colors</span>
-            <span className="bg-violet-500/20 text-violet-200 px-3 py-1 rounded-full text-sm">Logo Support</span>
-            <span className="bg-violet-500/20 text-violet-200 px-3 py-1 rounded-full text-sm">Multiple Types</span>
-          </div>
-        </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="container mx-auto px-4 py-8">
+    <PageLayout 
+      title="Enhanced QR Code Generator" 
+      description="Create customizable QR codes with logos and multiple formats"
+    >
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             
@@ -286,7 +272,7 @@ export default function QRCodeGenerator() {
                        config.type === 'sms' ? 'Phone Number' :
                        config.type === 'email' ? 'Email Address' : 'Text Content'}
                     </label>
-                    <textarea
+                    <Textarea
                       value={config.text}
                       onChange={(e) => setConfig(prev => ({ ...prev, text: e.target.value }))}
                       placeholder={
@@ -295,7 +281,7 @@ export default function QRCodeGenerator() {
                         config.type === 'email' ? 'example@email.com' :
                         'Enter text to encode...'
                       }
-                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-violet-500 focus:border-transparent min-h-[100px] resize-none"
+                      className="min-h-[100px]"
                     />
                   </div>
                 ) : config.type === 'wifi' ? (
@@ -530,7 +516,7 @@ export default function QRCodeGenerator() {
               <div className="text-center">
                 {isGenerating ? (
                   <div className="flex items-center justify-center h-64">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-violet-500"></div>
+                    <LoadingSpinner size="md" />
                   </div>
                 ) : qrCodeUrl ? (
                   <div className="space-y-4">
@@ -544,13 +530,16 @@ export default function QRCodeGenerator() {
                     </div>
                     
                     <div className="space-y-2">
-                      <button
-                        onClick={downloadQRCode}
-                        className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition-colors flex items-center gap-2 mx-auto"
-                      >
-                        <ArrowDownTrayIcon className="w-5 h-5" />
-                        Download QR Code
-                      </button>
+                      <div className="flex justify-center">
+                        <Button
+                          onClick={downloadQRCode}
+                          variant="primary"
+                          className="bg-green-600 hover:bg-green-700 border-green-600 hover:border-green-700"
+                        >
+                          <ArrowDownTrayIcon className="w-5 h-5" />
+                          Download QR Code
+                        </Button>
+                      </div>
                       
                       <div className="text-sm text-gray-400">
                         {config.size}x{config.size}px • {config.errorCorrection} Error Correction
@@ -597,7 +586,6 @@ export default function QRCodeGenerator() {
             </div>
           </div>
         </div>
-      </main>
-    </div>
+    </PageLayout>
   );
 }
