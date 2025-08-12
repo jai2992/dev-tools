@@ -1,158 +1,244 @@
 "use client";
-import React, { useState, useMemo } from "react";
-import Hero from "./components/Hero";
-import SearchBar from "./components/SearchBar";
-import CategoryFilter from "./components/CategoryFilter";
-import ToolCard from "../components/common/ToolCard";
-import FeaturesSection from "./components/FeaturesSection";
-import StatsSection from "./components/StatsSection";
-import Button from "../components/common/Button";
-import { toolsData, getToolsByCategory, searchTools } from "./components/toolsData";
+import Link from "next/link";
+import { useState, useEffect } from "react";
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeCategory, setActiveCategory] = useState("all");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
-  const filteredTools = useMemo(() => {
-    if (searchQuery) {
-      return searchTools(searchQuery);
+  // Load theme from localStorage on mount
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      setIsDarkMode(savedTheme === "dark");
     }
-    return getToolsByCategory(activeCategory);
-  }, [searchQuery, activeCategory]);
+  }, []);
 
-  const handleSearch = (query: string) => {
-    setSearchQuery(query);
-    if (query) {
-      setActiveCategory("all");
-    }
+  // Save theme to localStorage when changed
+  useEffect(() => {
+    localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+  }, [isDarkMode]);
+
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
   };
 
-  const handleCategoryChange = (category: string) => {
-    setActiveCategory(category);
-    setSearchQuery("");
-  };
+  const tools = [
+    // Code & Development
+    { name: "QR Generator", href: "/qr", icon: "🔲", category: "code", description: "Generate QR codes for URLs and text" },
+    { name: "Regex Tester", href: "/regex-tester", icon: "🔍", category: "code", description: "Test and debug regular expressions" },
+    { name: "Code Formatter", href: "/code-formatter", icon: "✨", category: "code", description: "Format and beautify your code" },
+    { name: "Code Minifier", href: "/code-minifier", icon: "📦", category: "code", description: "Minify JavaScript, CSS, and HTML" },
+    { name: "JSON Formatter", href: "/json-formatter", icon: "📋", category: "code", description: "Format and validate JSON data" },
+    { name: "SQL Formatter", href: "/sql-formatter", icon: "🗄️", category: "code", description: "Format and beautify SQL queries" },
+    { name: "API Formatter", href: "/api-formatter", icon: "🔌", category: "code", description: "Format API responses and requests" },
+    { name: "JWT Decoder", href: "/jwt-decoder", icon: "🔐", category: "code", description: "Decode and verify JWT tokens" },
+
+    // CSS & Design
+    { name: "CSS Gradient", href: "/css-gradient", icon: "🌈", category: "design", description: "Generate beautiful CSS gradients" },
+    { name: "Box Shadow", href: "/box-shadow", icon: "📦", category: "design", description: "Create CSS box shadow effects" },
+    { name: "Border Radius", href: "/border-radius-generator", icon: "🔄", category: "design", description: "Generate CSS border radius" },
+    { name: "Flexbox Generator", href: "/flexbox-generator", icon: "📐", category: "design", description: "Generate CSS flexbox layouts" },
+    { name: "CSS Grid Generator", href: "/css-grid-generator", icon: "⚡", category: "design", description: "Generate CSS grid layouts" },
+    { name: "Color Palette", href: "/color-palette", icon: "🎨", category: "design", description: "Generate color palettes" },
+    { name: "Color Picker", href: "/color-picker", icon: "🎨", category: "design", description: "Pick colors from images" },
+
+    // Images & Media
+    { name: "Image Compressor", href: "/image-compressor", icon: "🗜️", category: "image", description: "Compress images to reduce file size" },
+    { name: "Image Resizer", href: "/image-resizer", icon: "📏", category: "image", description: "Resize images to specific dimensions" },
+    { name: "Image Converter", href: "/image-converter", icon: "🔄", category: "image", description: "Convert between image formats" },
+    { name: "Image to Base64", href: "/image-to-base64", icon: "📝", category: "image", description: "Convert images to Base64 encoding" },
+    { name: "Photo Filters", href: "/photo-filters", icon: "📸", category: "image", description: "Apply filters and effects to photos" },
+    { name: "SVG Optimizer", href: "/svg-optimizer", icon: "⚡", category: "image", description: "Optimize and compress SVG files" },
+    { name: "Meme Generator", href: "/meme-generator", icon: "😂", category: "image", description: "Create memes with custom text" },
+    { name: "Barcode Generator", href: "/barcode-generator", icon: "📊", category: "image", description: "Generate various types of barcodes" },
+
+    // Documents & PDFs
+    { name: "PDF to Word", href: "/pdf-to-word", icon: "📄", category: "document", description: "Convert PDF files to Word documents" },
+    { name: "PDF to Excel", href: "/pdf-to-excel", icon: "📊", category: "document", description: "Convert PDF files to Excel spreadsheets" },
+    { name: "Word to PDF", href: "/word-to-pdf", icon: "📝", category: "document", description: "Convert Word documents to PDF" },
+    { name: "Excel to PDF", href: "/excel-to-pdf", icon: "📈", category: "document", description: "Convert Excel spreadsheets to PDF" },
+    { name: "PowerPoint to PDF", href: "/powerpoint-to-pdf", icon: "📊", category: "document", description: "Convert PowerPoint presentations to PDF" },
+    { name: "PDF Merge & Split", href: "/pdf-merge-split", icon: "🔗", category: "document", description: "Merge multiple PDFs or split into pages" },
+    { name: "PDF Compressor", href: "/pdf-compressor", icon: "🗜️", category: "document", description: "Compress PDF files to reduce size" },
+    { name: "PDF Extract Pages", href: "/pdf-extract-pages", icon: "📑", category: "document", description: "Extract specific pages from PDF files" },
+    { name: "PDF Unlock", href: "/pdf-unlock", icon: "🔓", category: "document", description: "Remove password protection from PDFs" },
+    { name: "Document Viewer", href: "/document-viewer", icon: "👁️", category: "document", description: "View various document formats online" },
+    { name: "Document Metadata", href: "/document-metadata", icon: "📋", category: "document", description: "View and edit document metadata" },
+    { name: "E-book Converter", href: "/ebook-converter", icon: "📚", category: "document", description: "Convert between e-book formats" },
+    { name: "OCR Text Extraction", href: "/ocr-text-extraction", icon: "🔍", category: "document", description: "Extract text from images using OCR" },
+
+    // Text Processing
+    { name: "Case Converter", href: "/case-converter", icon: "🔤", category: "text", description: "Convert text between different cases" },
+    { name: "Text Counter", href: "/text-counter", icon: "📊", category: "text", description: "Count words, characters, and lines" },
+    { name: "Text Diff", href: "/text-diff", icon: "🔍", category: "text", description: "Compare and find differences between texts" },
+    { name: "Remove Duplicates", href: "/remove-duplicates", icon: "🧹", category: "text", description: "Remove duplicate lines from text" },
+    { name: "Lorem Ipsum", href: "/lorem-ipsum", icon: "📝", category: "text", description: "Generate placeholder Lorem Ipsum text" },
+    { name: "ASCII Art", href: "/ascii-art", icon: "🎨", category: "text", description: "Generate ASCII art from text" },
+    { name: "Markdown to HTML", href: "/markdown-to-html", icon: "📄", category: "text", description: "Convert Markdown to HTML" },
+    { name: "HTML to Markdown", href: "/html-to-markdown", icon: "📝", category: "text", description: "Convert HTML to Markdown" },
+
+    // Converters & Encoders
+    { name: "Base64 Encoder", href: "/base64", icon: "🔐", category: "converter", description: "Encode and decode Base64 strings" },
+    { name: "URL Encoder", href: "/url-encoder", icon: "🔗", category: "converter", description: "Encode and decode URLs" },
+    { name: "CSV to JSON", href: "/csv-to-json", icon: "📊", category: "converter", description: "Convert CSV data to JSON format" },
+    { name: "Timestamp Converter", href: "/timestamp-converter", icon: "⏰", category: "converter", description: "Convert between timestamp formats" },
+
+    // Security & Generators
+    { name: "Password Generator", href: "/password-generator", icon: "🔑", category: "security", description: "Generate secure passwords" },
+    { name: "Hash Generator", href: "/hash-generator", icon: "🔒", category: "security", description: "Generate MD5, SHA1, SHA256 hashes" },
+    { name: "Favicon Generator", href: "/favicon-generator", icon: "🌟", category: "security", description: "Generate favicons for websites" },
+    { name: "Meta Tags", href: "/meta-tags", icon: "🏷️", category: "security", description: "Generate SEO meta tags" },
+    { name: "Mock Data", href: "/mock-data", icon: "📊", category: "security", description: "Generate mock data for testing" },
+    { name: ".htaccess Generator", href: "/htaccess-generator", icon: "⚙️", category: "security", description: "Generate Apache .htaccess configurations" }
+  ];
+
+  const categories = [
+    { id: "all", name: "All Tools", count: tools.length },
+    { id: "code", name: "Code & Dev", count: tools.filter(t => t.category === "code").length },
+    { id: "design", name: "CSS & Design", count: tools.filter(t => t.category === "design").length },
+    { id: "image", name: "Images", count: tools.filter(t => t.category === "image").length },
+    { id: "document", name: "Documents", count: tools.filter(t => t.category === "document").length },
+    { id: "text", name: "Text", count: tools.filter(t => t.category === "text").length },
+    { id: "converter", name: "Converters", count: tools.filter(t => t.category === "converter").length },
+    { id: "security", name: "Security", count: tools.filter(t => t.category === "security").length }
+  ];
+
+  const filteredTools = tools.filter(tool => {
+    const matchesCategory = selectedCategory === "all" || tool.category === selectedCategory;
+    const matchesSearch = tool.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      tool.description.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white relative overflow-x-hidden">
-      {/* Background Elements */}
-      <div className="fixed inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-purple-900/20 pointer-events-none" />
-      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent pointer-events-none" />
-      
-      {/* Main Content */}
-      <div className="relative z-10">
-        {/* Hero Section */}
-        <Hero />
-        
-        {/* Search and Filter Section */}
-        <div className="w-full max-w-6xl mx-auto px-4 mb-8 animate-slideUp animation-delay-800">
-          <SearchBar onSearch={handleSearch} />
-          <CategoryFilter 
-            activeCategory={activeCategory} 
-            onCategoryChange={handleCategoryChange} 
+    <div className={`min-h-screen transition-colors duration-300 ${isDarkMode
+      ? "bg-black text-white"
+      : "bg-white text-black"
+      }`}>
+      {/* Header */}
+      <header className={`text-center py-12 px-4 border-b transition-colors ${isDarkMode ? "border-gray-800" : "border-gray-200"
+        }`}>
+        <div className="max-w-4xl mx-auto">
+          <div className="flex justify-between items-start mb-8">
+            <div className="flex-1"></div>
+            <div className="flex-1">
+              <h1 className={`text-4xl md:text-6xl font-black mb-4 ${isDarkMode ? "text-white" : "text-black"
+                }`}>
+                DevTools
+              </h1>
+              <p className={`text-lg md:text-xl ${isDarkMode ? "text-gray-500" : "text-gray-600"
+                }`}>
+                {tools.length}+ tools for developers and creators
+              </p>
+            </div>
+            <div className="flex-1 flex justify-end">
+              <button
+                onClick={toggleTheme}
+                className={`p-3 rounded-lg transition-all ${isDarkMode
+                  ? "bg-gray-800 hover:bg-gray-700 text-white"
+                  : "bg-gray-100 hover:bg-gray-200 text-black"
+                  }`}
+                aria-label="Toggle theme"
+              >
+                {isDarkMode ? "☀️" : "🌙"}
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Search and Filter */}
+      <div className="max-w-6xl mx-auto px-4 py-8">
+        <div className="flex flex-col md:flex-row gap-4 mb-6">
+          <input
+            type="text"
+            placeholder="Search tools..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className={`flex-1 px-4 py-3 rounded-lg border transition-colors focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 ${isDarkMode
+              ? "bg-gray-800 border-gray-700 text-white placeholder-gray-400"
+              : "bg-white border-gray-300 text-black placeholder-gray-500"
+              }`}
           />
         </div>
 
-        {/* Tools Grid Section */}
-        <div className="w-full max-w-7xl mx-auto px-4 mb-16 animate-fadeIn">
-          {/* Results Header */}
-          <div className="mb-8 text-center animate-slideUp">
-            <h2 className="text-2xl font-bold text-white mb-2">
-              {searchQuery ? (
-                <>Search Results for &quot;{searchQuery}&quot;</>
-              ) : (
-                <>Available Tools</>
-              )}
-            </h2>
-            <p className="text-gray-400">
-              {filteredTools.length} tool{filteredTools.length !== 1 ? 's' : ''} found
-            </p>
-          </div>
+        <div className="flex flex-wrap gap-2">
+          {categories.map((category) => (
+            <button
+              key={category.id}
+              onClick={() => setSelectedCategory(category.id)}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${selectedCategory === category.id
+                ? "bg-blue-600 text-white shadow-lg"
+                : isDarkMode
+                  ? "bg-gray-800 text-gray-300 border border-gray-700 hover:bg-gray-700 hover:shadow-md"
+                  : "bg-white text-black border border-gray-300 hover:border-gray-400 hover:shadow-md"
+                }`}
+            >
+              {category.name} ({category.count})
+            </button>
+          ))}
+        </div>
+      </div>
 
-          {/* Tools Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredTools.map((tool, index) => (
-              <ToolCard
-                key={tool.id}
-                title={tool.name}
-                description={tool.description}
-                href={tool.href}
-                icon={<span className="text-2xl">{tool.icon}</span>}
-                category={tool.category}
-                variant="default"
-                className="animate-fade-in"
-                style={{ animationDelay: `${index * 0.05}s` }}
-              />
-            ))}
-          </div>
-
-          {/* No Results Message */}
-          {filteredTools.length === 0 && (
-            <div className="text-center py-16 animate-scaleIn">
-              <div className="text-6xl mb-4">🔍</div>
-              <h3 className="text-2xl font-bold text-white mb-2">No tools found</h3>
-              <p className="text-gray-400 mb-6">
-                Try adjusting your search terms or browse by category
-              </p>
-              <Button
-                variant="primary"
-                size="lg"
-                onClick={() => {
-                  setSearchQuery("");
-                  setActiveCategory("all");
-                }}
-              >
-                Show All Tools
-              </Button>
-            </div>
-          )}
+      {/* Tools Grid */}
+      <main className="max-w-6xl mx-auto px-4 pb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filteredTools.map((tool, index) => (
+            <Link
+              key={index}
+              href={tool.href}
+              className={`group block rounded-lg border transition-all duration-200 hover:shadow-lg ${isDarkMode
+                ? "bg-gray-900 border-gray-800 hover:border-blue-500"
+                : "bg-white border-gray-200 hover:border-blue-500"
+                }`}
+            >
+              <div className="p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="text-2xl">{tool.icon}</span>
+                  <h3 className={`text-lg font-semibold group-hover:text-blue-600 transition-colors ${isDarkMode ? "text-white" : "text-black"
+                    }`}>
+                    {tool.name}
+                  </h3>
+                </div>
+                <p className={`text-sm transition-colors ${isDarkMode
+                  ? "text-gray-400 group-hover:text-gray-300"
+                  : "text-gray-600 group-hover:text-gray-700"
+                  }`}>
+                  {tool.description}
+                </p>
+                <div className={`mt-4 flex items-center transition-colors group-hover:text-blue-600 ${isDarkMode ? "text-gray-500" : "text-gray-500"
+                  }`}>
+                  <span className="text-xs">Open tool</span>
+                  <svg className="w-3 h-3 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </div>
+            </Link>
+          ))}
         </div>
 
-        {/* Features Section */}
-        <FeaturesSection />
-
-        {/* Stats Section */}
-        <StatsSection />
-
-        {/* Call to Action Section */}
-        <section className="w-full max-w-4xl mx-auto px-4 py-16 text-center animate-fadeIn">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6 animate-slideUp">
-            Ready to Get Started?
-          </h2>
-          <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto animate-slideUp animation-delay-200">
-            Choose any tool above and start being more productive today. No sign-up required!
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-slideUp animation-delay-400">
-            <Button
-              variant="primary"
-              size="lg"
-              onClick={() => {
-                setSearchQuery("");
-                setActiveCategory("all");
-                document.querySelector('.grid')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="px-8 py-4"
-            >
-              Browse All Tools
-            </Button>
-            <Button
-              variant="secondary"
-              size="lg"
-              onClick={() => {
-                const featuresSection = document.getElementById('features');
-                if (featuresSection) {
-                  featuresSection.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
-              className="px-8 py-4"
-            >
-              Learn More
-            </Button>
+        {filteredTools.length === 0 && (
+          <div className="text-center py-16">
+            <div className="text-4xl mb-4">🔍</div>
+            <h3 className={`text-xl font-semibold mb-2 ${isDarkMode ? "text-white" : "text-black"
+              }`}>No tools found</h3>
+            <p className={isDarkMode ? "text-gray-500" : "text-gray-600"}>
+              Try adjusting your search or category filter
+            </p>
           </div>
-        </section>
+        )}
 
-        {/* Spacer for footer */}
-        <div className="h-20" />
-      </div>
+        {/* Footer */}
+        <footer className={`text-center mt-20 pt-12 border-t ${isDarkMode ? "border-gray-800" : "border-gray-200"
+          }`}>
+          <p className={isDarkMode ? "text-gray-500" : "text-gray-600"}>
+            Built for developers, by developers • {tools.length} tools available
+          </p>
+        </footer>
+      </main>
     </div>
   );
 }

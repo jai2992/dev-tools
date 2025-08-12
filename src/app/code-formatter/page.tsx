@@ -160,7 +160,7 @@ export default function CodeFormatterPage() {
 
   const formatSQL = (code: string, _indent: string): string => {
     const keywords = ['SELECT', 'FROM', 'WHERE', 'JOIN', 'INNER JOIN', 'LEFT JOIN', 'RIGHT JOIN', 'ORDER BY', 'GROUP BY', 'HAVING', 'INSERT', 'UPDATE', 'DELETE', 'CREATE', 'ALTER', 'DROP'];
-    
+
     let formatted = code.toUpperCase();
     keywords.forEach(keyword => {
       const regex = new RegExp(`\\b${keyword}\\b`, 'gi');
@@ -173,7 +173,7 @@ export default function CodeFormatterPage() {
   const addIndentation = (code: string, indent: string): string => {
     const lines = code.split('\n');
     let indentLevel = 0;
-    
+
     return lines.map(line => {
       const trimmed = line.trim();
       if (!trimmed) return '';
@@ -239,8 +239,8 @@ export default function CodeFormatterPage() {
         <meta name="robots" content="index,follow" />
       </Head>
 
-      <PageLayout 
-        title="Code Formatter" 
+      <PageLayout
+        title="Code Formatter"
         description="Format and beautify code for multiple programming languages"
       >
         <div className="max-w-6xl mx-auto space-y-6">
@@ -386,6 +386,6 @@ export default function CodeFormatterPage() {
           </Card>
         </div>
       </PageLayout>
-    </>)
+    </>
   );
 }
